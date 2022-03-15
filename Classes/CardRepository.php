@@ -15,36 +15,31 @@ class CardRepository
 
     public function create(): void
     {
-
     }
 
     // Get one
     public function find(): array
     {
-
     }
 
     // Get all
     public function get(): array
     {
-        // TODO: replace dummy data by real one
-        return [
-            ['name' => 'dummy one'],
-            ['name' => 'dummy two'],
-        ];
+        // make and run prepared statement
+        $query = 'SELECT *
+            FROM pokemon';
+        $stmt = $this->databaseManager->connection->prepare($query);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
 
-        // We get the database connection first, so we can apply our queries with it
-        // return $this->databaseManager->connection-> (runYourQueryHere)
+        return ($rows);
     }
 
     public function update(): void
     {
-
     }
 
     public function delete(): void
     {
-
     }
-
 }
