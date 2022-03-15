@@ -17,6 +17,7 @@
 
     <table class="pokemon-overview">
         <tr>
+            <th></th>
             <th width="100">pokemon</th>
             <th width="100">name</th>
             <th>level</th>
@@ -24,6 +25,14 @@
 
         <?php foreach ($cards as $card) : ?>
             <tr>
+                <!-- SHOW DETAILS BUTTON -->
+                <td>
+                    <form action="" method="POST">
+                        <button type="submit" name="action" value="showDetails">𝐢</button>
+                        <input type="hidden" name="id" value="<?= $card['id'] ?>">
+                    </form>
+                </td>
+
                 <form action="" method="POST">
                     <td class="adapting-width">
                         <div><input type="text" name="pokemon" value="<?= $card['pokemon'] ?>"></div>
@@ -54,6 +63,7 @@
 
         <!-- CREATE FORM -->
         <tr>
+            <td></td>
             <form action="" method="POST">
                 <td class="adapting-width">
                     <div><input type="text" name="pokemon" value=""></div>
@@ -71,6 +81,19 @@
         </tr>
 
     </table>
+
+    <!-- SHOW DETAILS -->
+    <?php if (!empty($details)) : ?>
+        <h2><?= $details['pokemon'] ?></h2>
+        <?php if (!empty($details['name'])) : ?>
+            <p><i><?= $details['name'] ?></i></p>
+        <?php endif ?>
+        <p>level <?= $details['level'] ?></p>
+        <?php if (!empty($details['description'])) : ?>
+            <p><?= $details['description'] ?></p>
+        <?php endif ?>
+    <?php endif ?>
+
 </body>
 
 </html>

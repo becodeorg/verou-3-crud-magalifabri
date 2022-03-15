@@ -39,12 +39,17 @@ switch ($action) {
         delete($cardRepository);
         break;
 
+    case 'showDetails':
+        $details = showDetails($cardRepository);
+        overview($cards, $details);
+        break;
+
     default:
         overview($cards);
         break;
 }
 
-function overview($cards)
+function overview($cards, $details = [])
 {
     // Load your view
     // Tip: you can load this dynamically and based on a variable, if you want to load another view
@@ -89,4 +94,9 @@ function delete($cardRepository)
     // prevent form resubmission on page reload
     header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
+}
+
+function showDetails($cardRepository): array
+{
+    return $cardRepository->find($_POST['id']);
 }

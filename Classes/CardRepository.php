@@ -25,8 +25,17 @@ class CardRepository
     }
 
     // Get one
-    public function find(): array
+    public function find($id): array
     {
+        $query = 'SELECT *
+            FROM pokemon
+            WHERE id = :id';
+        $stmt = $this->databaseManager->connection->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+
+        return ($rows[0]);
     }
 
     // Get all
