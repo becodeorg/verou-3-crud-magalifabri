@@ -1,0 +1,21 @@
+table.pokemon-overview tr,
+table.pokemon-overview td {
+    padding: 0 1rem;
+}
+
+.create-form td input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.create-form td {
+    position: relative;
+}
+
+.create-form td div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
