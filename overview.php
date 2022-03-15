@@ -84,14 +84,42 @@
 
     <!-- SHOW DETAILS -->
     <?php if (!empty($details)) : ?>
-        <h2><?= $details['pokemon'] ?></h2>
-        <?php if (!empty($details['name'])) : ?>
-            <p><i><?= $details['name'] ?></i></p>
+        <?php
+        $types = $details['types'];
+        $abilities = $details['abilities'];
+        $sprite = $details['sprites']['front_default'];
+        $name = $details['forms'][0]['name'];
+
+        // echo '<pre>';
+        // var_dump($details);
+        // echo '</pre>';
+        ?>
+
+        <h2><?= $name ?></h2>
+
+        <!-- DATABASE DATA -->
+        <?php if (!empty($details['nickname'])) : ?>
+            <p><i><?= $details['nickname'] ?></i></p>
         <?php endif ?>
         <p>level <?= $details['level'] ?></p>
         <?php if (!empty($details['description'])) : ?>
             <p><?= $details['description'] ?></p>
         <?php endif ?>
+
+        <!-- API DATA -->
+        <img src="<?= $sprite ?>" alt="">
+        <h3>Types</h3>
+        <ul>
+            <?php foreach ($types as $type) : ?>
+                <li><?= $type['type']['name'] ?></li>
+            <?php endforeach ?>
+        </ul>
+        <h3>Abilities</h3>
+        <ul>
+            <?php foreach ($abilities as $ability) : ?>
+                <li><?= $ability['ability']['name'] ?></li>
+            <?php endforeach ?>
+        </ul>
     <?php endif ?>
 
 </body>

@@ -40,7 +40,7 @@ switch ($action) {
         break;
 
     case 'showDetails':
-        $details = showDetails($cardRepository);
+        $details = getDetails($cardRepository);
         overview($cards, $details);
         break;
 
@@ -96,7 +96,21 @@ function delete($cardRepository)
     exit();
 }
 
-function showDetails($cardRepository): array
+function getDetails($cardRepository): array
 {
-    return $cardRepository->find($_POST['id']);
+    $dbData = $cardRepository->find($_POST['id']);
+    $pokemon = strtolower($dbData['pokemon']);
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, "https://pokeapi.co/api/v2/pokemon/{$pokemon}");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJSON = curl_exec($curl);
+    curl_close($curl);
+    $details = json_decode($responseJSON, true);
+
+    $details['nickname'] = $dbData['name'];
+    $details['level'] = $dbData['level'];
+    $details['description'] = $dbData['description'] ?? '';
+
+    return $details;
 }
