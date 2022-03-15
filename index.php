@@ -31,6 +31,10 @@ switch ($action) {
         create($cardRepository);
         break;
 
+    case 'update':
+        update($cardRepository);
+        break;
+
     case 'delete':
         delete($cardRepository);
         break;
@@ -51,6 +55,22 @@ function create($cardRepository)
 {
     $cardRepository->create(
         [
+            'name' => $_POST['name'],
+            'pokemon' => $_POST['pokemon'],
+            'level' => $_POST['level']
+        ]
+    );
+
+    // prevent form resubmission on page reload
+    header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
+    exit();
+}
+
+function update($cardRepository)
+{
+    $cardRepository->update(
+        [
+            'id' => $_POST['id'],
             'name' => $_POST['name'],
             'pokemon' => $_POST['pokemon'],
             'level' => $_POST['level']

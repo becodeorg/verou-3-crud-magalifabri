@@ -3,16 +3,19 @@ table.pokemon-overview td {
     /* padding: 0 1rem; */
 }
 
-.create-form td input {
+.create-form td input,
+.pokemon-entry td input {
     width: 100%;
     box-sizing: border-box;
 }
 
-.create-form td {
+.create-form td,
+.pokemon-entry td {
     position: relative;
 }
 
-.create-form td div {
+.create-form td div,
+.pokemon-entry td div {
     position: absolute;
     top: 0;
     right: 0;

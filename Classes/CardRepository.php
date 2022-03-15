@@ -42,8 +42,20 @@ class CardRepository
         return ($rows);
     }
 
-    public function update(): void
+    public function update($params): void
     {
+        $query = 'UPDATE pokemon
+            SET
+                pokemon = :pokemon,
+                name = :name,
+                level = :level
+            WHERE id = :id';
+        $stmt = $this->databaseManager->connection->prepare($query);
+        $stmt->bindParam(':id', $params['id']);
+        $stmt->bindParam(':pokemon', $params['pokemon']);
+        $stmt->bindParam(':name', $params['name']);
+        $stmt->bindParam(':level', $params['level']);
+        $stmt->execute();
     }
 
     public function delete($id): void

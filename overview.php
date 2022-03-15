@@ -17,21 +17,32 @@
 
     <table class="pokemon-overview">
         <tr>
-            <th>pokemon</th>
-            <th>name</th>
+            <th width="100">pokemon</th>
+            <th width="100">name</th>
             <th>level</th>
         </tr>
 
         <?php foreach ($cards as $card) : ?>
-            <tr>
-                <td><?= $card['pokemon'] ?></td>
-                <td><?= $card['name'] ?></td>
-                <td><?= $card['level'] ?></td>
-                <td>
-                    <form action="./php/update.php" method="POST">
-                        <button type="submit" name="update">✎</button>
-                    </form>
-                </td>
+            <tr class="pokemon-entry">
+                <form action="" method="POST">
+                    <td>
+                        <div><input type="text" name="pokemon" value="<?= $card['pokemon'] ?>"></div>
+                    </td>
+                    <td>
+                        <div><input type="text" name="name" value="<?= $card['name'] ?>"></div>
+                    </td>
+                    <td>
+                        <div><input type="number" name="level" value="<?= $card['level'] ?>"></div>
+                    </td>
+
+                    <!-- UPDATE BUTTON -->
+                    <td>
+                        <button type="submit" name="action" value="update">✎</button>
+                        <input type="hidden" name="id" value="<?= $card['id'] ?>">
+                    </td>
+                </form>
+
+                <!-- DELETE BUTTON -->
                 <td>
                     <form action="" method="POST">
                         <button type="submit" name="action" value="delete">✕</button>
@@ -41,6 +52,7 @@
             </tr>
         <?php endforeach; ?>
 
+        <!-- CREATE FORM -->
         <tr class="create-form">
             <form action="" method="POST">
                 <td>
