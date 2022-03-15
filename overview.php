@@ -33,8 +33,9 @@
                     </form>
                 </td>
                 <td>
-                    <form action="./php/delete.php" method="POST">
-                        <button type="submit" name="delete">✕</button>
+                    <form action="" method="POST">
+                        <button type="submit" name="action" value="delete">✕</button>
+                        <input type="hidden" name="id" value="<?= $card['id'] ?>">
                     </form>
                 </td>
             </tr>

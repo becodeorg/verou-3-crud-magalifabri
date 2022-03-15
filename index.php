@@ -31,6 +31,10 @@ switch ($action) {
         create($cardRepository);
         break;
 
+    case 'delete':
+        delete($cardRepository);
+        break;
+
     default:
         overview($cards);
         break;
@@ -52,6 +56,15 @@ function create($cardRepository)
             'level' => $_POST['level']
         ]
     );
+
+    // prevent form resubmission on page reload
+    header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
+    exit();
+}
+
+function delete($cardRepository)
+{
+    $cardRepository->delete($_POST['id']);
 
     // prevent form resubmission on page reload
     header("Location: {$_SERVER['REQUEST_URI']}", true, 303);

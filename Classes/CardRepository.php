@@ -46,7 +46,12 @@ class CardRepository
     {
     }
 
-    public function delete(): void
+    public function delete($id): void
     {
+        $query = 'DELETE FROM pokemon
+            WHERE id = :id;';
+        $stmt = $this->databaseManager->connection->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     }
 }
