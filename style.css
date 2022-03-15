@@ -1,6 +1,6 @@
 table.pokemon-overview tr,
 table.pokemon-overview td {
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
 }
 
 .create-form td input {

@@ -28,6 +28,11 @@
                 <td><?= $card['pokemon'] ?></td>
                 <td><?= $card['level'] ?></td>
                 <td>
+                    <form action="./php/update.php" method="POST">
+                        <button type="submit" name="update" value="update">✎</button>
+                    </form>
+                </td>
+                <td>
                     <form action="./php/delete.php" method="POST">
                         <button type="submit" name="delete" value="delete">✕</button>
                     </form>
@@ -46,7 +51,7 @@
                 <td>
                     <div><input type="number" name="level" value=""></div>
                 </td>
-                <td><input class="submit" type="submit" name="insertLearner"></td>
+                <td colspan="2"><input class="submit" type="submit" name="insertLearner"></td>
             </form>
         </tr>
 
