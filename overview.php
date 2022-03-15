@@ -23,15 +23,15 @@
         </tr>
 
         <?php foreach ($cards as $card) : ?>
-            <tr class="pokemon-entry">
+            <tr>
                 <form action="" method="POST">
-                    <td>
+                    <td class="adapting-width">
                         <div><input type="text" name="pokemon" value="<?= $card['pokemon'] ?>"></div>
                     </td>
-                    <td>
+                    <td class="adapting-width">
                         <div><input type="text" name="name" value="<?= $card['name'] ?>"></div>
                     </td>
-                    <td>
+                    <td class="adapting-width">
                         <div><input type="number" name="level" value="<?= $card['level'] ?>"></div>
                     </td>
 
@@ -53,15 +53,15 @@
         <?php endforeach; ?>
 
         <!-- CREATE FORM -->
-        <tr class="create-form">
+        <tr>
             <form action="" method="POST">
-                <td>
+                <td class="adapting-width">
                     <div><input type="text" name="pokemon" value=""></div>
                 </td>
-                <td>
+                <td class="adapting-width">
                     <div><input type="text" name="name" value=""></div>
                 </td>
-                <td>
+                <td class="adapting-width">
                     <div><input type="number" name="level" value=""></div>
                 </td>
                 <td colspan="2">
