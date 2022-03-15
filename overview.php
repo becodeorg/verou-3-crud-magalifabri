@@ -14,18 +14,15 @@
 
     <table>
         <tr>
-            <th>#</th>
             <th>name</th>
-            <th colspan="2">type(s)</th>
-            <th>description</th>
+            <th>pokemon</th>
+            <th>level</th>
         </tr>
         <?php foreach ($cards as $card) : ?>
             <tr>
-                <td><?= $card['number'] ?></td>
                 <td><?= $card['name'] ?></td>
-                <td><?= $card['type1'] ?></td>
-                <td><?= $card['type2'] ?></td>
-                <td><?= $card['description'] ?></td>
+                <td><?= $card['pokemon'] ?></td>
+                <td><?= $card['level'] ?></td>
             </tr>
         <?php endforeach; ?>
 
