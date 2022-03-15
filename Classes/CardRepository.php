@@ -15,11 +15,11 @@ class CardRepository
 
     public function create(array $params): void
     {
-        $query = 'INSERT INTO pokemon (pokemon, name, level)
-        VALUES (:pokemon, :name, :level);';
+        $query = 'INSERT INTO pokemon (pokemon, nickname, level)
+        VALUES (:pokemon, :nickname, :level);';
         $stmt = $this->databaseManager->connection->prepare($query);
         $stmt->bindParam(':pokemon', $params['pokemon']);
-        $stmt->bindParam(':name', $params['name']);
+        $stmt->bindParam(':nickname', $params['nickname']);
         $stmt->bindParam(':level', $params['level']);
         $stmt->execute();
     }
@@ -56,13 +56,13 @@ class CardRepository
         $query = 'UPDATE pokemon
             SET
                 pokemon = :pokemon,
-                name = :name,
+                nickname = :nickname,
                 level = :level
             WHERE id = :id';
         $stmt = $this->databaseManager->connection->prepare($query);
         $stmt->bindParam(':id', $params['id']);
         $stmt->bindParam(':pokemon', $params['pokemon']);
-        $stmt->bindParam(':name', $params['name']);
+        $stmt->bindParam(':nickname', $params['nickname']);
         $stmt->bindParam(':level', $params['level']);
         $stmt->execute();
     }

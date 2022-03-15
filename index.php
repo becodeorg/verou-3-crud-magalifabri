@@ -60,8 +60,8 @@ function create($cardRepository)
 {
     $cardRepository->create(
         [
-            'name' => $_POST['name'],
             'pokemon' => $_POST['pokemon'],
+            'nickname' => $_POST['nickname'],
             'level' => $_POST['level']
         ]
     );
@@ -76,8 +76,8 @@ function update($cardRepository)
     $cardRepository->update(
         [
             'id' => $_POST['id'],
-            'name' => $_POST['name'],
             'pokemon' => $_POST['pokemon'],
+            'nickname' => $_POST['nickname'],
             'level' => $_POST['level']
         ]
     );
@@ -108,7 +108,7 @@ function getDetails($cardRepository): array
     curl_close($curl);
     $details = json_decode($responseJSON, true);
 
-    $details['nickname'] = $dbData['name'];
+    $details['nickname'] = $dbData['nickname'];
     $details['level'] = $dbData['level'];
     $details['description'] = $dbData['description'] ?? '';
 

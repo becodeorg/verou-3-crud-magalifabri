@@ -13,13 +13,13 @@
 
 <body>
 
-    <h1>Goodcard - track your collection of Pokémon cards</h1>
+    <!-- <h1>Goodcard - track your collection of Pokémon cards</h1> -->
 
     <table class="pokemon-overview">
         <tr>
             <th></th>
             <th width="100">pokemon</th>
-            <th width="100">name</th>
+            <th width="100">nickname</th>
             <th>level</th>
         </tr>
 
@@ -38,7 +38,7 @@
                         <div><input type="text" name="pokemon" value="<?= $card['pokemon'] ?>"></div>
                     </td>
                     <td class="adapting-width">
-                        <div><input type="text" name="name" value="<?= $card['name'] ?>"></div>
+                        <div><input type="text" name="nickname" value="<?= $card['nickname'] ?>"></div>
                     </td>
                     <td class="adapting-width">
                         <div><input type="number" name="level" value="<?= $card['level'] ?>"></div>
@@ -69,7 +69,7 @@
                     <div><input type="text" name="pokemon" value=""></div>
                 </td>
                 <td class="adapting-width">
-                    <div><input type="text" name="name" value=""></div>
+                    <div><input type="text" name="nickname" value=""></div>
                 </td>
                 <td class="adapting-width">
                     <div><input type="number" name="level" value=""></div>
