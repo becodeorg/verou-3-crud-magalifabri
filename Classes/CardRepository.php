@@ -13,8 +13,15 @@ class CardRepository
         $this->databaseManager = $databaseManager;
     }
 
-    public function create(): void
+    public function create(array $params): void
     {
+        $query = 'INSERT INTO pokemon (pokemon, name, level)
+        VALUES (:pokemon, :name, :level);';
+        $stmt = $this->databaseManager->connection->prepare($query);
+        $stmt->bindParam(':pokemon', $params['pokemon']);
+        $stmt->bindParam(':name', $params['name']);
+        $stmt->bindParam(':level', $params['level']);
+        $stmt->execute();
     }
 
     // Get one

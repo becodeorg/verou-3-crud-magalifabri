@@ -24,11 +24,11 @@ $cardRepository = new CardRepository($databaseManager);
 $cards = $cardRepository->get();
 
 // get action
-$action = $_GET['action'] ?? null;
+$action = $_POST['action'] ?? null;
 
 switch ($action) {
     case 'create':
-        create();
+        create($cardRepository);
         break;
 
     default:
@@ -43,7 +43,17 @@ function overview($cards)
     require 'overview.php';
 }
 
-function create()
+function create($cardRepository)
 {
-    // TODO: provide the create logic
+    $cardRepository->create(
+        [
+            'name' => $_POST['name'],
+            'pokemon' => $_POST['pokemon'],
+            'level' => $_POST['level']
+        ]
+    );
+
+    // prevent form resubmission on page reload
+    header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
+    exit();
 }
