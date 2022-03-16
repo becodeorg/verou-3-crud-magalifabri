@@ -24,7 +24,7 @@ $cardRepository = new CardRepository($databaseManager);
 $cards = $cardRepository->get();
 
 // get action
-$action = $_POST['action'] ?? null;
+$action = $_POST['action'] ?? $_GET['action'] ?? null;
 
 switch ($action) {
     case 'create':
@@ -98,7 +98,7 @@ function delete($cardRepository)
 
 function getDetails($cardRepository): array
 {
-    $dbData = $cardRepository->find($_POST['id']);
+    $dbData = $cardRepository->find($_GET['id']);
     $pokemon = strtolower($dbData['pokemon']);
 
     $curl = curl_init();

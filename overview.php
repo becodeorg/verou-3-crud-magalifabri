@@ -15,6 +15,11 @@
 
     <!-- <h1>Goodcard - track your collection of Pokémon cards</h1> -->
 
+    <!-- <form action="" method="POST">
+        from level <input type="number">
+        to <input type="number">
+        <button type="submit">filter</button>
+    </form> -->
     <table class="pokemon-overview">
         <tr>
             <th></th>
@@ -27,7 +32,7 @@
             <tr>
                 <!-- SHOW DETAILS BUTTON -->
                 <td>
-                    <form action="" method="POST">
+                    <form action="" method="GET">
                         <button type="submit" name="action" value="showDetails">𝐢</button>
                         <input type="hidden" name="id" value="<?= $card['id'] ?>">
                     </form>
