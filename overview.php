@@ -15,7 +15,9 @@
 
     <!-- <h1>Goodcard - track your collection of Pokémon cards</h1> -->
 
-    <form action="" method="GET">
+    <h1 class="title"><a href="index.php">my pokemon</a></h1>
+
+    <form class="filter" action="" method="GET">
         <button type="submit" name="filterByLevel" value="1">show</button>
         from level <input type="number" name="from" value="<?= $_GET['from'] ?? 1 ?>">
         to <input type="number" name="to" value="<?= $_GET['to'] ?? 100 ?>">
@@ -24,9 +26,9 @@
     <table class="pokemon-overview">
         <tr>
             <th></th>
-            <th width="100">pokemon</th>
-            <th width="100">nickname</th>
-            <th>level</th>
+            <th width="125">pokemon</th>
+            <th width="125">nickname</th>
+            <th width="75">level</th>
         </tr>
 
         <?php foreach ($cards as $card) : ?>
@@ -96,45 +98,49 @@
 
     <!-- SHOW DETAILS -->
     <?php if (!empty($details)) : ?>
+
         <?php
         $types = $details['types'];
         $abilities = $details['abilities'];
         $sprite = $details['sprites']['front_default'];
         $name = $details['forms'][0]['name'];
-
-        // echo '<pre>';
-        // var_dump($details);
-        // echo '</pre>';
         ?>
 
-        <h2><?= $name ?></h2>
+        <section class="details">
 
-        <!-- DATABASE DATA -->
-        <?php if (!empty($details['lastUpdate'])) : ?>
-            <p><small>updated on: <?= $details['lastUpdate'] ?></small></p>
-        <?php endif ?>
-        <?php if (!empty($details['nickname'])) : ?>
-            <p><i><?= $details['nickname'] ?></i></p>
-        <?php endif ?>
-        <p>level <?= $details['level'] ?></p>
-        <?php if (!empty($details['description'])) : ?>
-            <p><?= $details['description'] ?></p>
-        <?php endif ?>
+            <!-- DATABASE DATA -->
+            <div class="title-and-img-wrapper">
+                <h2><?= $name ?></h2>
+                <img src="<?= $sprite ?>" alt="">
+            </div>
 
-        <!-- API DATA -->
-        <img src="<?= $sprite ?>" alt="">
-        <h3>Types</h3>
-        <ul>
-            <?php foreach ($types as $type) : ?>
-                <li><?= $type['type']['name'] ?></li>
-            <?php endforeach ?>
-        </ul>
-        <h3>Abilities</h3>
-        <ul>
-            <?php foreach ($abilities as $ability) : ?>
-                <li><?= $ability['ability']['name'] ?></li>
-            <?php endforeach ?>
-        </ul>
+            <?php if (!empty($details['lastUpdate'])) : ?>
+                <p><small>updated on: <?= $details['lastUpdate'] ?></small></p>
+            <?php endif ?>
+            <div class="nickname-and-level-wrapper">
+                <?php if (!empty($details['nickname'])) : ?>
+                    <p><b>Nickname</b>: <i><?= $details['nickname'] ?></i></p>
+                <?php endif ?>
+                <p><b>Level</b> <?= $details['level'] ?></p>
+            </div>
+            <?php if (!empty($details['description'])) : ?>
+                <p><b>Description</b>: <i>"<?= $details['description'] ?>"</i></p>
+            <?php endif ?>
+
+            <!-- API DATA -->
+            <h3>Types</h3>
+            <ul>
+                <?php foreach ($types as $type) : ?>
+                    <li><?= $type['type']['name'] ?></li>
+                <?php endforeach ?>
+            </ul>
+            <h3>Abilities</h3>
+            <ul>
+                <?php foreach ($abilities as $ability) : ?>
+                    <li><?= $ability['ability']['name'] ?></li>
+                <?php endforeach ?>
+            </ul>
+        </section>
     <?php endif ?>
 
 </body>

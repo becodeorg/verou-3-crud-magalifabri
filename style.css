@@ -1,3 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* 
+font-family: 'Open Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+font-family: 'Roboto Serif', serif;
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --blackish: rgb(43, 43, 43);
+}
+
+body {
+    padding: 2rem;
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(250, 249, 246);
+    color: var(--blackish);
+}
+
+h1,
+h2,
+h3
+{
+    font-family: 'Roboto Serif', serif;
+}
+
+button {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--blackish);
+    
+    padding: .0rem .5rem;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 3px;
+
+    transition: all .2s ease;
+}
+button:hover,
+button:focus
+{
+    background-color: lightgray;
+}
+
+.title a {
+    text-decoration: none;
+    color: var(--blackish);
+    font-weight: 400;
+    text-transform: capitalize;
+}
+.title {
+    margin-bottom: 2rem;
+}
+
+form.filter {
+    margin-bottom: 1rem;
+}
+form.filter input {
+    width: 4rem;
+}
+
+
+
+/* ----- OVERVIEW ----- */
+
+
+.filter input,
+.pokemon-overview input
+{
+    padding: .1rem .3rem;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+
+    background-color: rgb(255, 255, 255);
+    border: 1px solid lightgray;
+    border-radius: 3px;
+
+    transition: all .2s ease;
+}
+.pokemon-overview input:focus {
+    border: 1px solid var(--blackish);
+    outline: none;
+    background-color: rgb(255, 254, 220);
+}
+
+.pokemon-overview th {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: .8rem;
+}
+
 td.adapting-width {
     position: relative;
 }
@@ -11,4 +111,52 @@ td.adapting-width div {
 td.adapting-width input {
     width: 100%;
     box-sizing: border-box;
+}
+
+
+
+/* ----- DETAILS ----- */
+
+
+.details {
+    margin-top: 2rem;
+}
+
+.details h2 {
+    text-transform: capitalize;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.title-and-img-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: -.5rem;
+}
+
+.nickname-and-level-wrapper {
+    display: flex;
+    gap: 2rem;
+}
+
+.details p {
+    margin: .5rem 0;
+}
+
+.details p b {
+    font-weight: 600;
+}
+
+.details h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 2rem 0 .3rem;
+}
+
+.details ul {
+    margin-bottom: 1rem;
+}
+.details li {
+    list-style-position: inside;
 }
