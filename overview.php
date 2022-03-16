@@ -15,11 +15,12 @@
 
     <!-- <h1>Goodcard - track your collection of Pokémon cards</h1> -->
 
-    <!-- <form action="" method="POST">
-        from level <input type="number">
-        to <input type="number">
-        <button type="submit">filter</button>
-    </form> -->
+    <form action="" method="GET">
+        <button type="submit" name="filterByLevel" value="1">show</button>
+        from level <input type="number" name="from" value="<?= $_GET['from'] ?? 1 ?>">
+        to <input type="number" name="to" value="<?= $_GET['to'] ?? 100 ?>">
+    </form>
+
     <table class="pokemon-overview">
         <tr>
             <th></th>
@@ -35,6 +36,12 @@
                     <form action="" method="GET">
                         <button type="submit" name="action" value="showDetails">𝐢</button>
                         <input type="hidden" name="id" value="<?= $card['id'] ?>">
+
+                        <?php if (!empty($_GET['filterByLevel'])) : ?>
+                            <input type="hidden" name="filterByLevel" value="1">
+                            <input type="hidden" name="from" value="<?= $_GET['from'] ?? 1 ?>">
+                            <input type="hidden" name="to" value="<?= $_GET['to'] ?? 100 ?>">
+                        <?php endif ?>
                     </form>
                 </td>
 

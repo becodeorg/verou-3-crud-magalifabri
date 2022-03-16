@@ -21,7 +21,7 @@ $databaseManager->connect();
 
 // get cards
 $cardRepository = new CardRepository($databaseManager);
-$cards = $cardRepository->get();
+$cards = $cardRepository->get($_GET['from'] ?? 1, $_GET['to'] ?? 100);
 
 // get action
 $action = $_POST['action'] ?? $_GET['action'] ?? null;

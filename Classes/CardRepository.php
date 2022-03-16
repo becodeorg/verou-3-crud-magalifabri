@@ -38,14 +38,18 @@ class CardRepository
         return ($rows[0]);
     }
 
-    // Get all
-    public function get(): array
+    // Get range
+    public function get($from, $to): array
     {
         // make and run prepared statement
         $query = 'SELECT *
             FROM pokemon
-            WHERE isDeleted IS NULL;';
+            WHERE isDeleted IS NULL
+                AND level >= :from
+                AND level <= :to;';
         $stmt = $this->databaseManager->connection->prepare($query);
+        $stmt->bindParam(':from', $from);
+        $stmt->bindParam(':to', $to);
         $stmt->execute();
         $rows = $stmt->fetchAll();
 
