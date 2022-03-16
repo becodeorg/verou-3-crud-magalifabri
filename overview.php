@@ -103,6 +103,9 @@
         <h2><?= $name ?></h2>
 
         <!-- DATABASE DATA -->
+        <?php if (!empty($details['lastUpdate'])) : ?>
+            <p><small>updated on: <?= $details['lastUpdate'] ?></small></p>
+        <?php endif ?>
         <?php if (!empty($details['nickname'])) : ?>
             <p><i><?= $details['nickname'] ?></i></p>
         <?php endif ?>

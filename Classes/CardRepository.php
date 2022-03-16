@@ -57,7 +57,8 @@ class CardRepository
             SET
                 pokemon = :pokemon,
                 nickname = :nickname,
-                level = :level
+                level = :level,
+                lastUpdate = NOW()
             WHERE id = :id';
         $stmt = $this->databaseManager->connection->prepare($query);
         $stmt->bindParam(':id', $params['id']);
