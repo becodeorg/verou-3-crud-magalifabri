@@ -36,7 +36,7 @@
                 <!-- SHOW DETAILS BUTTON -->
                 <td>
                     <form action="" method="GET">
-                        <button type="submit" name="action" value="showDetails">𝐢</button>
+                        <a href="#details"><button type="submit" name="action" value="showDetails">𝐢</button></a>
                         <input type="hidden" name="id" value="<?= $card['id'] ?>">
 
                         <?php if (!empty($_GET['filterByLevel'])) : ?>
@@ -106,7 +106,7 @@
         $name = $details['forms'][0]['name'];
         ?>
 
-        <section class="details">
+        <section id="details" class="details">
 
             <!-- DATABASE DATA -->
             <div class="title-and-img-wrapper">
