@@ -43,7 +43,8 @@ class CardRepository
     {
         // make and run prepared statement
         $query = 'SELECT *
-            FROM pokemon';
+            FROM pokemon
+            WHERE isDeleted IS NULL;';
         $stmt = $this->databaseManager->connection->prepare($query);
         $stmt->execute();
         $rows = $stmt->fetchAll();
@@ -70,8 +71,15 @@ class CardRepository
 
     public function delete($id): void
     {
-        $query = 'DELETE FROM pokemon
+        // soft delete query
+        $query = 'UPDATE pokemon
+            SET isDeleted = 1
             WHERE id = :id;';
+
+        // hard delete query
+        // $query = 'DELETE FROM pokemon
+        //     WHERE id = :id;';
+
         $stmt = $this->databaseManager->connection->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
