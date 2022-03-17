@@ -74,21 +74,21 @@ function pokemonExists($pokemonName)
     return true;
 }
 
-function validateCreateFormInput($pokemon, $level)
+function validateCreateFormInput($pokemon, $level): string
 {
     if (empty($pokemon)) {
-        return false;
+        return 'no pokemon entered';
     } else if (!pokemonExists($pokemon)) {
-        return false;
+        return 'pokemon doesn\'t exist';
     } else if (empty($level)) {
-        return false;
+        return 'no level entered';
     } else if (!is_numeric($level)) {
-        return false;
+        return 'level invalid';
     } else if ($level < 1 || $level > 100) {
-        return false;
+        return 'level invalid';
     }
 
-    return true;
+    return '';
 }
 
 function create($cardRepository)
@@ -97,7 +97,9 @@ function create($cardRepository)
     $nickname = $_POST['nickname'];
     $level = $_POST['level'];
 
-    if (validateCreateFormInput($pokemon, $level)) {
+    $error = validateCreateFormInput($pokemon, $level);
+
+    if (empty($error)) {
         $cardRepository->create(
             [
                 'pokemon' => $pokemon,
@@ -105,35 +107,36 @@ function create($cardRepository)
                 'level' => $level
             ]
         );
+        // prevent form resubmission on page reload
+        header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
+    } else {
+        header("Location: {$_SERVER['REQUEST_URI']}" . '?&error=' . $error, true, 303);
     }
 
-    // prevent form resubmission on page reload
-    header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
 }
 
-
-function validateUpdateFormInput($pokemon, $level, $id)
+function validateUpdateFormInput($pokemon, $level, $id): string
 {
     if (empty($pokemon)) {
-        return false;
+        return 'no pokemon entered';
     } else if (!pokemonExists($pokemon)) {
-        return false;
+        return 'pokemon doesn\'t exist';
     } else if (empty($level)) {
-        return false;
+        return 'no level entered';
     } else if (!is_numeric($level)) {
-        return false;
+        return 'level invalid';
     } else if ($level < 1 || $level > 100) {
-        return false;
+        return 'level invalid';
     } else if (empty($id)) {
-        return false;
+        return 'no id entered';
     } else if (!is_numeric($id)) {
-        return false;
+        return 'invalid id';
     } else if ($id < 1) {
-        return false;
+        return 'invalid id';
     }
 
-    return true;
+    return '';
 }
 
 function update($cardRepository)
@@ -143,7 +146,9 @@ function update($cardRepository)
     $nickname = $_POST['nickname'];
     $level = $_POST['level'];
 
-    if (validateUpdateFormInput($pokemon, $level, $id)) {
+    $error = validateUpdateFormInput($pokemon, $level, $id);
+
+    if (empty($error)) {
         $cardRepository->update(
             [
                 'id' => $id,
@@ -152,10 +157,12 @@ function update($cardRepository)
                 'level' => $level
             ]
         );
+        // prevent form resubmission on page reload
+        header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
+    } else {
+        header("Location: {$_SERVER['REQUEST_URI']}" . '?&error=' . $error, true, 303);
     }
 
-    // prevent form resubmission on page reload
-    header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
 }
 

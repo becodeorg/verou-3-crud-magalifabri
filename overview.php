@@ -23,6 +23,13 @@
         to <input type="number" name="to" value="<?= $_GET['to'] ?? 100 ?>">
     </form>
 
+    <?php if (!empty($_GET['error'])) : ?>
+        <div class="img-and-p-wrapper">
+            <img src="./images/error-white.png" alt="">
+            <p class="error-message"><?= $_GET['error'] ?></p>
+        </div>
+    <?php endif ?>
+
     <table class="pokemon-overview">
         <tr class="header-row">
             <th></th>
