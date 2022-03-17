@@ -111,10 +111,10 @@ form.filter input {
     background-position: center;
     background-size: 60%;
 }
-.edit-button {background-image: url('./images/pencil.svg');}
+.edit-button {background-image: url('./images/save.png');}
 .info-button {background-image: url('./images/pokeball.png');}
 .edit-button:hover {
-    background-image: url('./images/pencil-white.svg');
+    background-image: url('./images/save-white.png');
 }
 .info-button:hover {
     background-image: url('./images/open-pokeball.png');
