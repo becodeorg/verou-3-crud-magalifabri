@@ -73,8 +73,22 @@ form.filter input {
 
 
 
-/* ----- ERROR MESSAGE ----- */
+/* ----- OVERVIEW ----- */
 
+.overview-and-details-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+.details {
+    flex: 1 1 200px;
+    max-width: 500px;
+}
+
+
+/* ERROR MESSAGE */
 
 .img-and-p-wrapper {
     display: flex;
@@ -94,10 +108,7 @@ form.filter input {
     height: 1.5rem;
 }
 
-
-
-/* ----- OVERVIEW ----- */
-
+/* TABLE */
 
 .pokemon-overview td,
 .pokemon-overview th
@@ -207,7 +218,8 @@ form.filter input {
 
 .nickname-and-level-wrapper {
     display: flex;
-    gap: 2rem;
+    flex-wrap: wrap;
+    column-gap: 2rem;
 }
 
 .details p {
