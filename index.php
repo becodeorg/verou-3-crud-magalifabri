@@ -49,6 +49,7 @@ switch ($action) {
         break;
 }
 
+
 function overview($cards, $details = [])
 {
     // Load your view
@@ -56,36 +57,79 @@ function overview($cards, $details = [])
     require 'overview.php';
 }
 
+
+function validateCreateFormInput()
+{
+    if (empty($_POST['pokemon'])) {
+        return false;
+    } else if (empty($_POST['level'])) {
+        return false;
+    } else if (!is_numeric($_POST['level'])) {
+        return false;
+    } else if ($_POST['level'] < 1 || $_POST['level'] > 100) {
+        return false;
+    }
+
+    return true;
+}
+
 function create($cardRepository)
 {
-    $cardRepository->create(
-        [
-            'pokemon' => $_POST['pokemon'],
-            'nickname' => $_POST['nickname'],
-            'level' => $_POST['level']
-        ]
-    );
+    if (validateCreateFormInput()) {
+        $cardRepository->create(
+            [
+                'pokemon' => $_POST['pokemon'],
+                'nickname' => $_POST['nickname'],
+                'level' => $_POST['level']
+            ]
+        );
+    }
 
     // prevent form resubmission on page reload
     header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
+}
+
+
+function validateUpdateFormInput()
+{
+    if (empty($_POST['pokemon'])) {
+        return false;
+    } else if (empty($_POST['level'])) {
+        return false;
+    } else if (!is_numeric($_POST['level'])) {
+        return false;
+    } else if ($_POST['level'] < 1 || $_POST['level'] > 100) {
+        return false;
+    } else if (empty($_POST['id'])) {
+        return false;
+    } else if (!is_numeric($_POST['id'])) {
+        return false;
+    } else if ($_POST['id'] < 1) {
+        return false;
+    }
+
+    return true;
 }
 
 function update($cardRepository)
 {
-    $cardRepository->update(
-        [
-            'id' => $_POST['id'],
-            'pokemon' => $_POST['pokemon'],
-            'nickname' => $_POST['nickname'],
-            'level' => $_POST['level']
-        ]
-    );
+    if (validateUpdateFormInput()) {
+        $cardRepository->update(
+            [
+                'id' => $_POST['id'],
+                'pokemon' => $_POST['pokemon'],
+                'nickname' => $_POST['nickname'],
+                'level' => $_POST['level']
+            ]
+        );
+    }
 
     // prevent form resubmission on page reload
     header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
 }
+
 
 function delete($cardRepository)
 {
@@ -95,6 +139,7 @@ function delete($cardRepository)
     header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
 }
+
 
 function getDetails($cardRepository): array
 {
