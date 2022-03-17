@@ -113,23 +113,23 @@ function create($cardRepository)
 }
 
 
-function validateUpdateFormInput()
+function validateUpdateFormInput($pokemon, $level, $id)
 {
-    if (empty($_POST['pokemon'])) {
+    if (empty($pokemon)) {
         return false;
-    } else if (!pokemonExists($_POST['pokemon'])) {
+    } else if (!pokemonExists($pokemon)) {
         return false;
-    } else if (empty($_POST['level'])) {
+    } else if (empty($level)) {
         return false;
-    } else if (!is_numeric($_POST['level'])) {
+    } else if (!is_numeric($level)) {
         return false;
-    } else if ($_POST['level'] < 1 || $_POST['level'] > 100) {
+    } else if ($level < 1 || $level > 100) {
         return false;
-    } else if (empty($_POST['id'])) {
+    } else if (empty($id)) {
         return false;
-    } else if (!is_numeric($_POST['id'])) {
+    } else if (!is_numeric($id)) {
         return false;
-    } else if ($_POST['id'] < 1) {
+    } else if ($id < 1) {
         return false;
     }
 
@@ -138,13 +138,18 @@ function validateUpdateFormInput()
 
 function update($cardRepository)
 {
-    if (validateUpdateFormInput()) {
+    $id = $_POST['id'];
+    $pokemon = $_POST['pokemon'];
+    $nickname = $_POST['nickname'];
+    $level = $_POST['level'];
+
+    if (validateUpdateFormInput($pokemon, $level, $id)) {
         $cardRepository->update(
             [
-                'id' => $_POST['id'],
-                'pokemon' => $_POST['pokemon'],
-                'nickname' => $_POST['nickname'],
-                'level' => $_POST['level']
+                'id' => $id,
+                'pokemon' => $pokemon,
+                'nickname' => $nickname,
+                'level' => $level
             ]
         );
     }
