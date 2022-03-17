@@ -29,11 +29,12 @@
             </form>
 
             <!-- ERROR MESSAGE -->
-            <?php if (!empty($_GET['error'])) : ?>
+            <?php if (!empty($_SESSION['inputValidationError'])) : ?>
                 <div class="img-and-p-wrapper">
                     <img src="./images/error-white.png" alt="">
-                    <p class="error-message"><?= $_GET['error'] ?></p>
+                    <p class="error-message"><?= $_SESSION['inputValidationError'] ?></p>
                 </div>
+                <?php $_SESSION['inputValidationError'] = '' ?>
             <?php endif ?>
 
             <!-- TABLE -->

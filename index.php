@@ -6,6 +6,8 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+session_start();
+
 require_once 'config.php';
 require_once 'classes/DatabaseManager.php';
 require_once 'classes/CardRepository.php';
@@ -107,12 +109,11 @@ function create($cardRepository)
                 'level' => $level
             ]
         );
-        // prevent form resubmission on page reload
-        header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
-    } else {
-        header("Location: {$_SERVER['REQUEST_URI']}" . '?&error=' . $error, true, 303);
     }
 
+    $_SESSION['inputValidationError'] = $error;
+
+    header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
 }
 
@@ -157,12 +158,11 @@ function update($cardRepository)
                 'level' => $level
             ]
         );
-        // prevent form resubmission on page reload
-        header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
-    } else {
-        header("Location: {$_SERVER['REQUEST_URI']}" . '?&error=' . $error, true, 303);
     }
 
+    $_SESSION['inputValidationError'] = $error;
+
+    header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
 }
 
@@ -171,7 +171,6 @@ function delete($cardRepository)
 {
     $cardRepository->delete($_POST['id']);
 
-    // prevent form resubmission on page reload
     header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
     exit();
 }
