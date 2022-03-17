@@ -50,7 +50,8 @@ button {
 button:hover,
 button:focus
 {
-    background-color: lightgray;
+    color: white;
+    background-color: gray;
 }
 
 .title a {
@@ -103,11 +104,21 @@ form.filter input {
     color: gray;
 }
 
-.edit-button {
-    background-image: url('./images/pencil.svg');
-    background-size: 75%;
+.edit-button,
+.info-button
+{
     background-repeat: no-repeat;
     background-position: center;
+    background-size: 60%;
+}
+.edit-button {background-image: url('./images/pencil.svg');}
+.info-button {background-image: url('./images/pokeball.png');}
+.edit-button:hover {
+    background-image: url('./images/pencil-white.svg');
+}
+.info-button:hover {
+    background-image: url('./images/open-pokeball.png');
+    background-size: 75%;
 }
 
 /* INPUT */

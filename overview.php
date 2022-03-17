@@ -37,7 +37,7 @@
                 <form action="" method="GET">
                     <td>
                         <!-- <a href="#details"> -->
-                        <button type="submit" name="action" value="showDetails" class="info-button">𝐢</button>
+                        <button type="submit" name="action" value="showDetails" class="info-button"></button>
                         <!-- </a> -->
                         <input type="hidden" name="id" value="<?= $card['id'] ?>">
 
