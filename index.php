@@ -58,9 +58,27 @@ function overview($cards, $details = [])
 }
 
 
+function pokemonExists($pokemonName)
+{
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, "https://pokeapi.co/api/v2/pokemon/{$_POST['pokemon']}");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJSON = curl_exec($curl);
+    curl_close($curl);
+    $details = json_decode($responseJSON, true);
+
+    if (empty($details)) {
+        return false;
+    }
+
+    return true;
+}
+
 function validateCreateFormInput()
 {
     if (empty($_POST['pokemon'])) {
+        return false;
+    } else if (!pokemonExists($_POST['pokemon'])) {
         return false;
     } else if (empty($_POST['level'])) {
         return false;
@@ -94,6 +112,8 @@ function create($cardRepository)
 function validateUpdateFormInput()
 {
     if (empty($_POST['pokemon'])) {
+        return false;
+    } else if (!pokemonExists($_POST['pokemon'])) {
         return false;
     } else if (empty($_POST['level'])) {
         return false;
