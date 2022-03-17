@@ -98,7 +98,8 @@ form.filter input {
 
 .info-button,
 .edit-button,
-.delete-button
+.delete-button,
+.create-button
 {
     width: 2rem;
     color: gray;
@@ -119,6 +120,11 @@ form.filter input {
 .info-button:hover {
     background-image: url('./images/open-pokeball.png');
     background-size: 75%;
+}
+
+.create-button {
+    font-size: 1.5rem;
+    line-height: 0;
 }
 
 /* INPUT */

@@ -77,9 +77,7 @@
                 <td><input type="text" name="pokemon" value=""></td>
                 <td><input type="text" name="nickname" value=""></td>
                 <td><input type="number" name="level" value=""></td>
-                <td colspan="2">
-                    <button class="submit" type="submit" name="action" value="create">submit</button>
-                </td>
+                <td><button type="submit" name="action" value="create" class="create-button">+</button></td>
             </form>
         </tr>
 
