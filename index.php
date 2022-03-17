@@ -74,17 +74,17 @@ function pokemonExists($pokemonName)
     return true;
 }
 
-function validateCreateFormInput()
+function validateCreateFormInput($pokemon, $level)
 {
-    if (empty($_POST['pokemon'])) {
+    if (empty($pokemon)) {
         return false;
-    } else if (!pokemonExists($_POST['pokemon'])) {
+    } else if (!pokemonExists($pokemon)) {
         return false;
-    } else if (empty($_POST['level'])) {
+    } else if (empty($level)) {
         return false;
-    } else if (!is_numeric($_POST['level'])) {
+    } else if (!is_numeric($level)) {
         return false;
-    } else if ($_POST['level'] < 1 || $_POST['level'] > 100) {
+    } else if ($level < 1 || $level > 100) {
         return false;
     }
 
@@ -93,12 +93,16 @@ function validateCreateFormInput()
 
 function create($cardRepository)
 {
-    if (validateCreateFormInput()) {
+    $pokemon = $_POST['pokemon'];
+    $nickname = $_POST['nickname'];
+    $level = $_POST['level'];
+
+    if (validateCreateFormInput($pokemon, $level)) {
         $cardRepository->create(
             [
-                'pokemon' => $_POST['pokemon'],
-                'nickname' => $_POST['nickname'],
-                'level' => $_POST['level']
+                'pokemon' => $pokemon,
+                'nickname' => $nickname,
+                'level' => $level
             ]
         );
     }
