@@ -74,25 +74,10 @@ form.filter input {
 
 /* ----- OVERVIEW ----- */
 
-
-.filter input,
-.pokemon-overview input
+.pokemon-overview td,
+.pokemon-overview th
 {
-    padding: .1rem .3rem;
-
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1rem;
-
-    background-color: rgb(255, 255, 255);
-    border: 1px solid lightgray;
-    border-radius: 3px;
-
-    transition: all .2s ease;
-}
-.pokemon-overview input:focus {
-    border: 1px solid var(--blackish);
-    outline: none;
-    background-color: rgb(255, 254, 220);
+    padding: .1rem;
 }
 
 .pokemon-overview th {
@@ -102,19 +87,59 @@ form.filter input {
     font-size: .8rem;
 }
 
-td.adapting-width {
-    position: relative;
+.pokemon-overview input,
+.pokemon-overview button
+{
+    height: 1.7rem;
 }
-td.adapting-width div {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+
+/* BUTTONS */
+
+.info-button,
+.edit-button,
+.delete-button
+{
+    width: 2rem;
+    color: gray;
 }
-td.adapting-width input {
-    width: 100%;
-    box-sizing: border-box;
+
+.edit-button {
+    background-image: url('./images/pencil.svg');
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* INPUT */
+
+.pokemon-overview input {
+    max-width: 6rem;
+}
+.pokemon-overview tr td:nth-child(6) input,
+.pokemon-overview tr:last-child td:nth-child(5) input {
+    max-width: 4rem;
+}
+
+.filter input,
+.pokemon-overview input
+{
+    padding: 0rem .3rem;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+
+    background-color: transparent;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+
+    transition: all .2s ease;
+}
+.filter input:focus,
+.pokemon-overview input:focus {
+    border: 1px solid var(--blackish);
+    outline: none;
+    background-color: rgb(255, 255, 255);
+
 }
 
 

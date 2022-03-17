@@ -24,19 +24,21 @@
     </form>
 
     <table class="pokemon-overview">
-        <tr>
+        <tr class="header-row">
             <th></th>
-            <th width="125">pokemon</th>
-            <th width="125">nickname</th>
-            <th width="75">level</th>
+            <th>pokemon</th>
+            <th>nickname</th>
+            <th>level</th>
         </tr>
 
         <?php foreach ($cards as $card) : ?>
             <tr>
                 <!-- SHOW DETAILS BUTTON -->
-                <td>
-                    <form action="" method="GET">
-                        <a href="#details"><button type="submit" name="action" value="showDetails">𝐢</button></a>
+                <form action="" method="GET">
+                    <td>
+                        <!-- <a href="#details"> -->
+                        <button type="submit" name="action" value="showDetails" class="info-button">𝐢</button>
+                        <!-- </a> -->
                         <input type="hidden" name="id" value="<?= $card['id'] ?>">
 
                         <?php if (!empty($_GET['filterByLevel'])) : ?>
@@ -44,34 +46,27 @@
                             <input type="hidden" name="from" value="<?= $_GET['from'] ?? 1 ?>">
                             <input type="hidden" name="to" value="<?= $_GET['to'] ?? 100 ?>">
                         <?php endif ?>
-                    </form>
-                </td>
-
-                <form action="" method="POST">
-                    <td class="adapting-width">
-                        <div><input type="text" name="pokemon" value="<?= $card['pokemon'] ?>"></div>
-                    </td>
-                    <td class="adapting-width">
-                        <div><input type="text" name="nickname" value="<?= $card['nickname'] ?>"></div>
-                    </td>
-                    <td class="adapting-width">
-                        <div><input type="number" name="level" value="<?= $card['level'] ?>"></div>
-                    </td>
-
-                    <!-- UPDATE BUTTON -->
-                    <td>
-                        <button type="submit" name="action" value="update">✎</button>
-                        <input type="hidden" name="id" value="<?= $card['id'] ?>">
                     </td>
                 </form>
 
+                <!-- INFO -->
+                <form action="" method="POST">
+                    <td><input type="text" name="pokemon" value="<?= $card['pokemon'] ?>"></td>
+                    <td><input type="text" name="nickname" value="<?= $card['nickname'] ?>"></td>
+                    <td><input type="number" name="level" value="<?= $card['level'] ?>"></td>
+
+                    <!-- UPDATE BUTTON -->
+                    <td><button type="submit" name="action" value="update" class="edit-button">&nbsp;</button></td>
+
+                    <input type="hidden" name="id" value="<?= $card['id'] ?>">
+                </form>
+
                 <!-- DELETE BUTTON -->
-                <td>
-                    <form action="" method="POST">
-                        <button type="submit" name="action" value="delete">✕</button>
-                        <input type="hidden" name="id" value="<?= $card['id'] ?>">
-                    </form>
-                </td>
+                <form action="" method="POST">
+                    <td><button type="submit" name="action" value="delete" class="delete-button">✕</button></td>
+
+                    <input type="hidden" name="id" value="<?= $card['id'] ?>">
+                </form>
             </tr>
         <?php endforeach; ?>
 
@@ -79,15 +74,9 @@
         <tr>
             <td></td>
             <form action="" method="POST">
-                <td class="adapting-width">
-                    <div><input type="text" name="pokemon" value=""></div>
-                </td>
-                <td class="adapting-width">
-                    <div><input type="text" name="nickname" value=""></div>
-                </td>
-                <td class="adapting-width">
-                    <div><input type="number" name="level" value=""></div>
-                </td>
+                <td><input type="text" name="pokemon" value=""></td>
+                <td><input type="text" name="nickname" value=""></td>
+                <td><input type="number" name="level" value=""></td>
                 <td colspan="2">
                     <button class="submit" type="submit" name="action" value="create">submit</button>
                 </td>
