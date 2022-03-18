@@ -44,7 +44,7 @@ class CardRepository
         // make and run prepared statement
         $query = 'SELECT *
             FROM pokemon
-            WHERE isDeleted IS NULL
+            WHERE pokemon.isDeleted IS NULL
                 AND level >= :from
                 AND level <= :to;';
         $stmt = $this->databaseManager->connection->prepare($query);
