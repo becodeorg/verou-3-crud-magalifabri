@@ -8,14 +8,14 @@ error_reporting(E_ALL);
 
 session_start();
 
-require_once 'classes/DatabaseManager.php';
-require_once 'classes/CardRepository.php';
+require_once __DIR__ . '/classes/DatabaseManager.php';
+require_once __DIR__ . '/classes/CardRepository.php';
 
 // create DatabaseManager
 if (!empty(getenv("DATABASE_URL"))) {
     $databaseManager = new DatabaseManager('', '', '', '');
 } else {
-    require_once 'config.php';
+    require_once __DIR__ . '/config.php';
 
     $databaseManager = new DatabaseManager(
         $config['host'] ?? '',
