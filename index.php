@@ -176,6 +176,21 @@ function delete($cardRepository)
 }
 
 
+function getFlavourText($details): string
+{
+    $speciesUrl = $details['species']['url'];
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $speciesUrl);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJSON = curl_exec($curl);
+    curl_close($curl);
+    $details = json_decode($responseJSON, true);
+
+    $flavourText = $details['flavor_text_entries'][0]['flavor_text'];
+
+    return $flavourText;
+}
+
 function getDetails($cardRepository): array
 {
     $dbData = $cardRepository->find($_GET['id']);
@@ -191,7 +206,7 @@ function getDetails($cardRepository): array
     $details['lastUpdate'] = $dbData['lastUpdate'] ?? '';
     $details['nickname'] = $dbData['nickname'];
     $details['level'] = $dbData['level'];
-    $details['description'] = $dbData['description'] ?? '';
+    $details['flavourText'] = getFlavourText($details);
 
     return $details;
 }

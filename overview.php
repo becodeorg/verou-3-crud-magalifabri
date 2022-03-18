@@ -112,7 +112,6 @@
 
             <section id="details" class="details">
 
-                <!-- DATABASE DATA -->
                 <div class="title-and-img-wrapper">
                     <h2><?= $name ?></h2>
                     <img src="<?= $sprite ?>" alt="">
@@ -121,23 +120,23 @@
                 <?php if (!empty($details['lastUpdate'])) : ?>
                     <p><small>updated on: <?= $details['lastUpdate'] ?></small></p>
                 <?php endif ?>
+
                 <div class="nickname-and-level-wrapper">
                     <?php if (!empty($details['nickname'])) : ?>
                         <p><b>Nickname</b>: <i><?= $details['nickname'] ?></i></p>
                     <?php endif ?>
                     <p><b>Level</b> <?= $details['level'] ?></p>
                 </div>
-                <?php if (!empty($details['description'])) : ?>
-                    <p><b>Description</b>: <i>"<?= $details['description'] ?>"</i></p>
-                <?php endif ?>
 
-                <!-- API DATA -->
+                <p><b>Description</b>: <i>"<?= $details['flavourText'] ?>"</i></p>
+
                 <h3>Types</h3>
                 <ul>
                     <?php foreach ($types as $type) : ?>
                         <li><?= $type['type']['name'] ?></li>
                     <?php endforeach ?>
                 </ul>
+
                 <h3>Abilities</h3>
                 <ul>
                     <?php foreach ($abilities as $ability) : ?>
