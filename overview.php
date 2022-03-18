@@ -7,13 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
 
-    <title>Goodcard - track your collection of Pokémon cards</title>
+    <title>My Pokemon</title>
 </head>
 
 <body>
-
-    <!-- <h1>Goodcard - track your collection of Pokémon cards</h1> -->
 
     <h1 class="title"><a href="index.php">my pokemon</a></h1>
 
