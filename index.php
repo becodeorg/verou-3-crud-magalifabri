@@ -65,10 +65,10 @@ function overview($cards, $details = [])
 }
 
 
-function pokemonFoundInApi($pokemonName)
+function pokemonFoundInApi($pokemon)
 {
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, "https://pokeapi.co/api/v2/pokemon/{$_POST['pokemon']}");
+    curl_setopt($curl, CURLOPT_URL, "https://pokeapi.co/api/v2/pokemon/{$pokemon}");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $responseJSON = curl_exec($curl);
     curl_close($curl);
