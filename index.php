@@ -8,8 +8,8 @@ error_reporting(E_ALL);
 
 session_start();
 
-require_once __DIR__ . '/classes/DatabaseManager.php';
-require_once __DIR__ . '/classes/CardRepository.php';
+require_once __DIR__ . '/Classes/DatabaseManager.php';
+require_once __DIR__ . '/Classes/CardRepository.php';
 
 // create DatabaseManager
 if (!empty(getenv("DATABASE_URL"))) {
