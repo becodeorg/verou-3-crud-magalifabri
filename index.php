@@ -14,7 +14,6 @@ require_once __DIR__ . '/Classes/CardRepository.php';
 // create DatabaseManager
 if (!empty(getenv("DATABASE_URL"))) {
     $databaseManager = new DatabaseManager('', '', '', '');
-    $_SESSION['heroku'] = 1;
 } else {
     require_once __DIR__ . '/config.php';
 

@@ -39,23 +39,13 @@ class CardRepository
     }
 
 
-    public function col($name): string
-    {
-        if (!empty($_SESSION['heroku'])) {
-            return "\"$name\"";
-        } else {
-            return $name;
-        }
-    }
-
-
     // Get range
     public function get($from, $to): array
     {
         // make and run prepared statement
         $query = 'SELECT *
             FROM pokemon
-            WHERE ' . $this->col('isDeleted') . ' IS NULL
+            WHERE is_deleted IS NULL
                 AND level >= :from
                 AND level <= :to;';
         $stmt = $this->databaseManager->connection->prepare($query);
@@ -88,7 +78,7 @@ class CardRepository
     {
         // soft delete query
         $query = 'UPDATE pokemon
-            SET isDeleted = 1
+            SET is_deleted = 1
             WHERE id = :id;';
 
         // hard delete query
