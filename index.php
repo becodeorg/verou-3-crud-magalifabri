@@ -209,7 +209,7 @@ function getDetails($cardRepository): array
     curl_close($curl);
     $details = json_decode($responseJSON, true);
 
-    $details['lastUpdate'] = $dbData['lastUpdate'] ?? '';
+    $details['last_update'] = $dbData['last_update'] ?? '';
     $details['nickname'] = $dbData['nickname'];
     $details['level'] = $dbData['level'];
     $details['flavourText'] = getFlavourText($details);

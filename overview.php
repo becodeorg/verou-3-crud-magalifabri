@@ -117,8 +117,8 @@
                     <img src="<?= $sprite ?>" alt="">
                 </div>
 
-                <?php if (!empty($details['lastUpdate'])) : ?>
-                    <p><small>updated on: <?= $details['lastUpdate'] ?></small></p>
+                <?php if (!empty($details['last_update'])) : ?>
+                    <p><small>updated on: <?= $details['last_update'] ?></small></p>
                 <?php endif ?>
 
                 <div class="nickname-and-level-wrapper">
