@@ -52,7 +52,15 @@
                         <form action="" method="GET">
                             <td>
                                 <!-- <a href="#details"> -->
-                                <button type="submit" name="action" value="showDetails" class="info-button">&nbsp;</button>
+                                <?php if (
+                                    !empty($_GET['action'])
+                                    && $_GET['action'] === 'showDetails'
+                                    && $_GET['id'] == $card['id']
+                                ) : ?>
+                                    <button type="submit" name="action" value="showDetails" class="info-button active">&nbsp;</button>
+                                <?php else : ?>
+                                    <button type="submit" name="action" value="showDetails" class="info-button">&nbsp;</button>
+                                <?php endif ?>
                                 <!-- </a> -->
                                 <input type="hidden" name="id" value="<?= $card['id'] ?>">
 

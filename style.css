@@ -158,9 +158,12 @@ form.filter input {
 .edit-button:hover {
     background-image: url('./images/save-white.png');
 }
-.info-button:hover {
+.info-button:hover,
+.info-button.active
+{
     background-image: url('./images/open-pokeball.png');
     background-size: 75%;
+    background-color: gray;
 }
 
 .create-button {
