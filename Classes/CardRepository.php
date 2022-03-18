@@ -38,13 +38,24 @@ class CardRepository
         return ($rows[0]);
     }
 
+
+    public function col($name): string
+    {
+        if (!empty($_SESSION['heroku'])) {
+            return "\"$name\"";
+        } else {
+            return $name;
+        }
+    }
+
+
     // Get range
     public function get($from, $to): array
     {
         // make and run prepared statement
         $query = 'SELECT *
             FROM pokemon
-            WHERE pokemon.isDeleted IS NULL
+            WHERE ' . $this->col('isDeleted') . ' IS NULL
                 AND level >= :from
                 AND level <= :to;';
         $stmt = $this->databaseManager->connection->prepare($query);
