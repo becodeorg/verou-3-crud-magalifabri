@@ -191,9 +191,14 @@ function getFlavourText($details): string
     curl_close($curl);
     $details = json_decode($responseJSON, true);
 
-    $flavourText = $details['flavor_text_entries'][0]['flavor_text'];
-
-    return $flavourText;
+    $i = 0;
+    while (true) {
+        $language = $details['flavor_text_entries'][$i]['language']['name'];
+        if ($language === 'en') {
+            return $details['flavor_text_entries'][$i]['flavor_text'];
+        }
+        $i++;
+    }
 }
 
 function getDetails($cardRepository): array
