@@ -65,7 +65,7 @@ function overview($cards, $details = [])
 }
 
 
-function pokemonExists($pokemonName)
+function pokemonFoundInApi($pokemonName)
 {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, "https://pokeapi.co/api/v2/pokemon/{$_POST['pokemon']}");
@@ -85,8 +85,8 @@ function validateCreateFormInput($pokemon, $level): string
 {
     if (empty($pokemon)) {
         return 'no pokemon entered';
-    } else if (!pokemonExists($pokemon)) {
-        return 'pokemon doesn\'t exist';
+    } else if (!pokemonFoundInApi($pokemon)) {
+        return 'pokemon not found in API';
     } else if (empty($level)) {
         return 'no level entered';
     } else if (!is_numeric($level)) {
@@ -126,8 +126,8 @@ function validateUpdateFormInput($pokemon, $level, $id): string
 {
     if (empty($pokemon)) {
         return 'no pokemon entered';
-    } else if (!pokemonExists($pokemon)) {
-        return 'pokemon doesn\'t exist';
+    } else if (!pokemonFoundInApi($pokemon)) {
+        return 'pokemon not found in API';
     } else if (empty($level)) {
         return 'no level entered';
     } else if (!is_numeric($level)) {
