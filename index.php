@@ -8,17 +8,22 @@ error_reporting(E_ALL);
 
 session_start();
 
-require_once 'config.php';
 require_once 'classes/DatabaseManager.php';
 require_once 'classes/CardRepository.php';
 
 // create DatabaseManager
-$databaseManager = new DatabaseManager(
-    $config['host'],
-    $config['user'],
-    $config['password'],
-    $config['dbname']
-);
+if (!empty(getenv("DATABASE_URL"))) {
+    $databaseManager = new DatabaseManager('', '', '', '');
+} else {
+    require_once 'config.php';
+
+    $databaseManager = new DatabaseManager(
+        $config['host'] ?? '',
+        $config['user'] ?? '',
+        $config['password'] ?? '',
+        $config['dbname'] ?? ''
+    );
+}
 $databaseManager->connect();
 
 // get cards
