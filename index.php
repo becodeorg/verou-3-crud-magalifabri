@@ -181,16 +181,52 @@ function delete($cardRepository)
 }
 
 
-function getFlavourText($details): string
+function getEvolutions(array $evolvesTo, string $dashes, string &$evolutions)
 {
-    $speciesUrl = $details['species']['url'];
+    $dashes .= '—';
+
+    foreach ($evolvesTo as $evolution) {
+        $matches = [];
+        preg_match('/\/(\d+)\/$/', $evolution['species']['url'], $matches);
+        $pokemonId =  $matches[1];
+
+        $evolutions .= "<div class='evolution'><p>{$dashes}▹ {$evolution['species']['name']}</p><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{$pokemonId}.png'></div>";
+        if (!empty($evolution['evolves_to'])) {
+            getEvolutions($evolution['evolves_to'], $dashes, $evolutions);
+        }
+    }
+}
+
+function getEvolutionChain($evolutionChainUrl): string
+{
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $speciesUrl);
+    curl_setopt($curl, CURLOPT_URL, $evolutionChainUrl);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $responseJSON = curl_exec($curl);
     curl_close($curl);
-    $details = json_decode($responseJSON, true);
+    $evolutionChainObj = json_decode($responseJSON, true);
 
+    if (!empty($evolutionChainObj['chain']['evolves_to'])) {
+        $matches = [];
+        preg_match('/\/(\d+)\/$/', $evolutionChainObj['chain']['species']['url'], $matches);
+        $pokemonId =  $matches[1];
+        $evolutions = "<div class='evolution'><p>▹ {$evolutionChainObj['chain']['species']['name']}</p><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{$pokemonId}.png'></div>";
+        getEvolutions($evolutionChainObj['chain']['evolves_to'], '', $evolutions);
+
+        return $evolutions;
+    }
+
+    return '';
+}
+
+function getEvolutionTree($speciesData): string
+{
+    $evolutionChainUrl = $speciesData['evolution_chain']['url'];
+    return getEvolutionChain($evolutionChainUrl);
+}
+
+function getFlavourText($details): string
+{
     $i = 0;
     while (true) {
         $language = $details['flavor_text_entries'][$i]['language']['name'];
@@ -199,6 +235,18 @@ function getFlavourText($details): string
         }
         $i++;
     }
+}
+
+function getSpeciesData($speciesUrl): array
+{
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $speciesUrl);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJSON = curl_exec($curl);
+    curl_close($curl);
+    $details = json_decode($responseJSON, true);
+
+    return $details;
 }
 
 function getDetails($cardRepository): array
@@ -216,7 +264,12 @@ function getDetails($cardRepository): array
     $details['last_update'] = $dbData['last_update'] ?? '';
     $details['nickname'] = $dbData['nickname'];
     $details['level'] = $dbData['level'];
-    $details['flavourText'] = getFlavourText($details);
+
+    $speciesUrl = $details['species']['url'];
+    $speciesData = getSpeciesData($speciesUrl);
+
+    $details['flavourText'] = getFlavourText($speciesData);
+    $details['evolutionTree'] = getEvolutionTree($speciesData);
 
     return $details;
 }

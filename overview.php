@@ -150,6 +150,12 @@
                         <li><?= $ability['ability']['name'] ?></li>
                     <?php endforeach ?>
                 </ul>
+
+                <?php if (!empty($details['evolutionTree'])) : ?>
+                    <h3>Evolution</h3>
+                    <?= $details['evolutionTree'] ?>
+                <?php endif ?>
+
             </section>
         <?php endif ?>
 

@@ -251,3 +251,8 @@ form.filter input {
 .details li {
     list-style-position: inside;
 }
+
+.details .evolution {
+    display: flex;
+    align-items: center;
+}
