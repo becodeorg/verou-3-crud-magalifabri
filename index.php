@@ -79,7 +79,7 @@ function pokemonFoundInApi($pokemon)
     return true;
 }
 
-function validateCreateFormInput($pokemon, $level): string
+function validateFormInput($pokemon, $level, $id = NULL): string
 {
     if (empty($pokemon)) {
         return 'no pokemon entered';
@@ -91,6 +91,14 @@ function validateCreateFormInput($pokemon, $level): string
         return 'level invalid';
     } else if ($level < 1 || $level > 100) {
         return 'level invalid';
+    } else if ($id) {
+        if (empty($id)) {
+            return 'no id entered';
+        } else if (!is_numeric($id)) {
+            return 'invalid id';
+        } else if ($id < 1) {
+            return 'invalid id';
+        }
     }
 
     return '';
@@ -102,7 +110,7 @@ function create($cardRepository)
     $nickname = $_POST['nickname'];
     $level = $_POST['level'];
 
-    $error = validateCreateFormInput($pokemon, $level);
+    $error = validateFormInput($pokemon, $level);
 
     if (empty($error)) {
         $cardRepository->create(
@@ -120,28 +128,6 @@ function create($cardRepository)
     exit();
 }
 
-function validateUpdateFormInput($pokemon, $level, $id): string
-{
-    if (empty($pokemon)) {
-        return 'no pokemon entered';
-    } else if (!pokemonFoundInApi($pokemon)) {
-        return 'pokemon not found in API';
-    } else if (empty($level)) {
-        return 'no level entered';
-    } else if (!is_numeric($level)) {
-        return 'level invalid';
-    } else if ($level < 1 || $level > 100) {
-        return 'level invalid';
-    } else if (empty($id)) {
-        return 'no id entered';
-    } else if (!is_numeric($id)) {
-        return 'invalid id';
-    } else if ($id < 1) {
-        return 'invalid id';
-    }
-
-    return '';
-}
 
 function update($cardRepository)
 {
@@ -150,7 +136,7 @@ function update($cardRepository)
     $nickname = $_POST['nickname'];
     $level = $_POST['level'];
 
-    $error = validateUpdateFormInput($pokemon, $level, $id);
+    $error = validateFormInput($pokemon, $level, $id);
 
     if (empty($error)) {
         $cardRepository->update(
