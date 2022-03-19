@@ -63,16 +63,23 @@ function overview($cards, $details = [])
 }
 
 
-function pokemonFoundInApi($pokemon)
+function getDataFromPokeApi($url)
 {
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, "https://pokeapi.co/api/v2/pokemon/{$pokemon}");
+    curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $responseJSON = curl_exec($curl);
     curl_close($curl);
-    $details = json_decode($responseJSON, true);
+    $data = json_decode($responseJSON, true);
 
-    if (empty($details)) {
+    return $data;
+}
+
+function pokemonFoundInApi($pokemon)
+{
+    $data = getDataFromPokeApi("https://pokeapi.co/api/v2/pokemon/{$pokemon}");
+
+    if (empty($data)) {
         return false;
     }
 
@@ -183,35 +190,30 @@ function getEvolutions(array $evolvesTo, string $dashes, string &$evolutions)
 
 function getEvolutionChain($evolutionChainUrl): string
 {
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $evolutionChainUrl);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $responseJSON = curl_exec($curl);
-    curl_close($curl);
-    $evolutionChainObj = json_decode($responseJSON, true);
+    $evolutionChainData = getDataFromPokeApi($evolutionChainUrl);
 
-    if (!empty($evolutionChainObj['chain']['evolves_to'])) {
-        $matches = [];
-        preg_match('/\/(\d+)\/$/', $evolutionChainObj['chain']['species']['url'], $matches);
-        $pokemonId =  $matches[1];
-        $evolutions = "<div class='evolution'><p>▹ {$evolutionChainObj['chain']['species']['name']}</p><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{$pokemonId}.png'></div>";
-        getEvolutions($evolutionChainObj['chain']['evolves_to'], '', $evolutions);
-
-        return $evolutions;
+    if (empty($evolutionChainData['chain']['evolves_to'])) {
+        return '';
     }
 
-    return '';
-}
+    $matches = [];
+    preg_match('/\/(\d+)\/$/', $evolutionChainData['chain']['species']['url'], $matches);
+    $pokemonId =  $matches[1];
 
-function getEvolutionTree($speciesData): string
-{
-    $evolutionChainUrl = $speciesData['evolution_chain']['url'];
-    return getEvolutionChain($evolutionChainUrl);
+    $evolutions = "
+        <div class='evolution'>
+            <p>▹ {$evolutionChainData['chain']['species']['name']}</p>
+            <img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{$pokemonId}.png'>
+        </div>";
+    getEvolutions($evolutionChainData['chain']['evolves_to'], '', $evolutions);
+
+    return $evolutions;
 }
 
 function getFlavourText($details): string
 {
     $i = 0;
+
     while (true) {
         $language = $details['flavor_text_entries'][$i]['language']['name'];
         if ($language === 'en') {
@@ -221,39 +223,20 @@ function getFlavourText($details): string
     }
 }
 
-function getSpeciesData($speciesUrl): array
-{
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $speciesUrl);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $responseJSON = curl_exec($curl);
-    curl_close($curl);
-    $details = json_decode($responseJSON, true);
-
-    return $details;
-}
-
 function getDetails($cardRepository): array
 {
     $dbData = $cardRepository->find($_GET['id']);
     $pokemon = strtolower($dbData['pokemon']);
 
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, "https://pokeapi.co/api/v2/pokemon/{$pokemon}");
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $responseJSON = curl_exec($curl);
-    curl_close($curl);
-    $details = json_decode($responseJSON, true);
+    $pokemonData = getDataFromPokeApi("https://pokeapi.co/api/v2/pokemon/{$pokemon}");
 
-    $details['last_update'] = $dbData['last_update'] ?? '';
-    $details['nickname'] = $dbData['nickname'];
-    $details['level'] = $dbData['level'];
+    $pokemonData['last_update'] = $dbData['last_update'] ?? '';
+    $pokemonData['nickname'] = $dbData['nickname'];
+    $pokemonData['level'] = $dbData['level'];
 
-    $speciesUrl = $details['species']['url'];
-    $speciesData = getSpeciesData($speciesUrl);
+    $speciesData = getDataFromPokeApi($pokemonData['species']['url']);
+    $pokemonData['flavourText'] = getFlavourText($speciesData);
+    $pokemonData['evolutionTree'] = getEvolutionChain($speciesData['evolution_chain']['url']);
 
-    $details['flavourText'] = getFlavourText($speciesData);
-    $details['evolutionTree'] = getEvolutionTree($speciesData);
-
-    return $details;
+    return $pokemonData;
 }
