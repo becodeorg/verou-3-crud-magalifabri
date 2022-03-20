@@ -3,4 +3,4 @@
 *.css.map
 notes.md
 node_modules
-config.php
+config*

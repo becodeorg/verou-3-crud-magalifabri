@@ -11,19 +11,38 @@ session_start();
 require_once __DIR__ . '/Classes/DatabaseManager.php';
 require_once __DIR__ . '/Classes/CardRepository.php';
 
-// create DatabaseManager
-if (!empty(getenv("DATABASE_URL"))) {
-    $databaseManager = new DatabaseManager('', '', '', '');
-} else {
-    require_once __DIR__ . '/config.php';
+// get db config
 
-    $databaseManager = new DatabaseManager(
-        $config['host'] ?? '',
-        $config['user'] ?? '',
-        $config['password'] ?? '',
-        $config['dbname'] ?? ''
-    );
+// local db
+// require_once __DIR__ . '/config_localhost.php';
+
+// heroku db + heroku env vars
+if (!empty(getenv("DATABASE_URL"))) {
+    $dbParams = parse_url(getenv("DATABASE_URL"));
+
+    $config = [
+        'scheme' => $dbParams['scheme'],
+        'host' => $dbParams['host'],
+        'port' => $dbParams['port'],
+        'user' => $dbParams['user'],
+        'pass' => $dbParams['pass'],
+        'dbname' => ltrim($dbParams["path"], "/"),
+    ];
 }
+// heroku db + local env vars
+else {
+    require_once __DIR__ . '/config_heroku.php';
+}
+
+// create DatabaseManager
+$databaseManager = new DatabaseManager(
+    $config['scheme'],
+    $config['host'],
+    $config['port'],
+    $config['user'],
+    $config['pass'],
+    $config['dbname']
+);
 $databaseManager->connect();
 
 // get cards
