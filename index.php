@@ -21,7 +21,7 @@ if (!empty(getenv("DATABASE_URL"))) {
     $dbParams = parse_url(getenv("DATABASE_URL"));
 
     $config = [
-        'scheme' => $dbParams['scheme'],
+        'scheme' => 'pgsql',
         'host' => $dbParams['host'],
         'port' => $dbParams['port'],
         'user' => $dbParams['user'],
